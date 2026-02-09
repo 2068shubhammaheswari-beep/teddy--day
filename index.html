@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Teddy Day 🧸</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffd6e8, #fff1f7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  text-align: center;
+}
+
+h1 { color: #ff4d88; margin: 5px 0; }
+h2 { color: #555; font-weight: normal; margin-bottom: 5px; }
+
+.name {
+  font-size: 16px;
+  color: #ff4d88;
+  margin-bottom: 10px;
+}
+
+#typing {
+  font-size: 15px;
+  color: #444;
+  min-height: 40px;
+  max-width: 300px;
+}
+
+/* TEDDY */
+.teddy {
+  position: relative;
+  width: 160px;
+  height: 200px;
+  animation: bounce 2s infinite;
+}
+
+.head {
+  width: 120px;
+  height: 120px;
+  background: #c68642;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+
+.ear {
+  width: 40px;
+  height: 40px;
+  background: #b5743a;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+}
+.ear.left { left: -10px; }
+.ear.right { right: -10px; }
+
+.eye {
+  width: 10px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 45px;
+}
+.eye.left { left: 35px; }
+.eye.right { right: 35px; }
+
+.nose {
+  width: 14px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 65px;
+  left: 53px;
+}
+
+.body {
+  width: 140px;
+  height: 100px;
+  background: #c68642;
+  border-radius: 50%;
+  position: absolute;
+  top: 100px;
+  left: 10px;
+}
+
+.heart {
+  position: absolute;
+  top: 125px;
+  left: 60px;
+  font-size: 22px;
+  animation: pulse 1.5s infinite;
+}
+
+/* BUTTON */
+button {
+  margin-top: 15px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 30px;
+  background: #ff4d88;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+button:hover { transform: scale(1.05); }
+
+/* POPUP */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 300px;
+}
+
+/* HEART RAIN */
+.heart-rain {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall 3s linear forwards;
+}
+
+/* ANIMATIONS */
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Teddy Day 🧸</h1>
+<h2>For Mrs. Maheswari ❤️</h2>
+<div class="name">Meet your teddy: <b>Dora 🍫🧸</b></div>
+
+<div class="teddy">
+  <div class="head">
+    <div class="ear left"></div>
+    <div class="ear right"></div>
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+    <div class="nose"></div>
+  </div>
+  <div class="body"></div>
+  <div class="heart">❤️</div>
+</div>
+
+<div id="typing"></div>
+
+<button onclick="hug()">🤗 Hug Dora</button>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h3>🧸 Dora Says…</h3>
+    <p>
+      Hi… I’m Dora 🍫🧸  
+      He sent me to stay with you  
+      whenever he can’t.  
+      Hug me tight—I carry his love ❤️
+    </p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_3b7c6c3b4a.mp3">
+</audio>
+
+<script>
+/* TYPING EFFECT */
+const text = "Whenever you miss me, hug Chocopie… he’s a little piece of me 🧸❤️";
+let i = 0;
+function type() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type, 60);
+  }
+}
+type();
+
+/* HUG */
+function hug() {
+  document.getElementById("popup").style.display = "flex";
+  document.getElementById("music").play();
+  heartRain();
+}
+
+/* CLOSE */
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+/* HEART RAIN */
+function heartRain() {
+  for (let i = 0; i < 25; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart-rain";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (2 + Math.random() * 2) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 3000);
+  }
+}
+</script>
+
+</body>
+</html>
